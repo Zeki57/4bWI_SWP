@@ -9,6 +9,5 @@ for (let index = 1; index <= value; index++) {
         console.log("Foo");
     } else {
         console.log(index);
-
     }
 }
