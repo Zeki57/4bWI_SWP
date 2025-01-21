@@ -1,0 +1,48 @@
+.container {
+    background-color: yellow;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
+.box {
+    background-color: green;
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+}
+
+.wilkommen {
+    background-color: aqua;
+    width: 400px;
+    height: 300px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+.text {
+    font-size: large;
+    position: relative;
+    padding: 20px;
+}
+
+.div {
+    background-color: orange;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.aussen {
+    background-color: blueviolet;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
