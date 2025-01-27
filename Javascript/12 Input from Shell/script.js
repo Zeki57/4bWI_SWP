@@ -32,14 +32,4 @@ let inputOfUser = await readLineAsync();
 console.log("Your name is" + inputOfUser);
 
 
-
-
-
-
-
-
-
-
-
-
 readline.close(); 
