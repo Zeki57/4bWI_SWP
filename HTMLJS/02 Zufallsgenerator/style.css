@@ -1,0 +1,41 @@
+body {
+    background-color: blue;
+}
+
+#boxs {
+    display: flex;
+    justify-content: center;
+}
+
+#box1 {
+    height: 40px;
+    width: 320px;
+}
+
+#box2 {
+    height: 40px;
+    width: 320px;
+    margin-left: 10px;
+}
+
+#button {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    height: 50px;
+    width: 660px;
+}
+
+#output {
+    align-items: center;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#result {
+    align-items: center;
+    justify-content: center;
+}
