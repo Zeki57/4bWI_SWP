@@ -3,10 +3,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Card from './Components/Card'
+import List from './Components/list'
 
 
 function App() {
   const [count, setCount] = useState(0)
+  const [drinks] = useState(["Coffe", "Tea", "Beer",]);
 
   return (
     <>
@@ -14,6 +16,9 @@ function App() {
       <div className="flex">
         <Card Name={"Zeki"} Jobtitel={"Student"} Description={"Clever"} />
         <Card Name={"David"} Jobtitel={"IT"} Description={"Cute"} />
+      </div>
+      <div className="drinks">
+        <List items={drinks} />
       </div>
       test
     </>
