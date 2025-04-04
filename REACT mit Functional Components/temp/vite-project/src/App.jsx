@@ -4,11 +4,15 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Card from './Components/Card'
 import List from './Components/list'
+import Button from '/Component/Button'
 
 
 function App() {
   const [count, setCount] = useState(0)
   const [drinks] = useState(["Coffe", "Tea", "Beer",]);
+  const handleClick = () => {
+    alert("Button wurde geklickt!");
+  };
 
   return (
     <>
@@ -19,6 +23,9 @@ function App() {
       </div>
       <div className="drinks">
         <List items={drinks} />
+      </div>
+      <div className="my-4 text-center">
+        <Button text="Sender" onClick={handleClick} />
       </div>
       test
     </>
