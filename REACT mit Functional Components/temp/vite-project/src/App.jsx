@@ -5,6 +5,7 @@ import './App.css'
 import Card from './Components/Card'
 import List from './Components/list'
 import Button from './Components/Button'
+import Visitecard from './Components/Visitecard'
 
 
 function App() {
@@ -27,7 +28,10 @@ function App() {
       <div className="my-4 text-center">
         <Button text="Sender" onClick={handleClick} />
       </div>
-      test
+      <div className='felx-jusify-center my-4'>
+        <Visitecard name="Zeki Aksoy" jobTitel="Architect & Engineer"></Visitecard>
+      </div>
+
     </>
   )
 
