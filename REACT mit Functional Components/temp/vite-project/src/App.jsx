@@ -4,8 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Card from './Components/Card'
 import List from './Components/list'
-import Button from './Components/Button'
 import Visitecard from './Components/Visitecard'
+import Button from './Components/button'
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
       <div className="drinks">
         <List items={drinks} />
       </div>
-      <div className="my-4 text-center">
+      <div className='my-4 text-center'>
         <Button text="Sender" onClick={handleClick} />
       </div>
       <div className='felx-jusify-center my-4'>
