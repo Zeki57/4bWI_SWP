@@ -6,6 +6,7 @@ import Card from './Components/Card'
 import List from './Components/list'
 import Visitecard from './Components/Visitecard'
 import Button from './Components/button'
+import PeopleContainer from './Components/PeopleContainer'
 
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
       </div>
       <div className='felx-jusify-center my-4'>
         <Visitecard name="Zeki Aksoy" jobTitel="Architect & Engineer"></Visitecard>
+      </div>
+      <div>
+        <PeopleContainer />
       </div>
 
     </>
