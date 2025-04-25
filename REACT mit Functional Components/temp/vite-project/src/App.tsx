@@ -4,6 +4,7 @@ import List from './Components/list';
 import Button from './Components/Button';
 import Visitecard from './Components/Visitecard';
 import PeopleContainer from './Components/PeopleContainer';
+import PeopleCard from './Components/PeopleCard';
 
 type Props = {}
 
@@ -32,7 +33,6 @@ export default function App1({ }: Props) {
             <div>
                 <PeopleContainer />
             </div>
-
         </>
     )
 }
