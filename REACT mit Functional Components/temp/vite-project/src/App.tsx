@@ -5,6 +5,7 @@ import Button from './Components/Button';
 import Visitecard from './Components/Visitecard';
 import PeopleContainer from './Components/PeopleContainer';
 import PeopleCard from './Components/PeopleCard';
+import Test2 from './Components/Test2';
 
 type Props = {}
 
@@ -32,6 +33,9 @@ export default function App1({ }: Props) {
             </div>
             <div>
                 <PeopleContainer />
+            </div>
+            <div>
+                <Test2 title={''} />
             </div>
         </>
     )
