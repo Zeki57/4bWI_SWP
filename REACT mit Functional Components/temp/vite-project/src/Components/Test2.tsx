@@ -17,7 +17,6 @@ export default function Test2({ title }: Props) {
     }, [])
 
     return (
-        <div className={`${visible ? "bg-blue-100" : "bg-red-100"}`}>
-            );
-           
+        <div className={`${visible ? "bg-blue-100" : "bg-red-100"}`} />
+    );
 }
