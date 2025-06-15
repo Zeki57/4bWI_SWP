@@ -9,5 +9,5 @@ function zahl(arr) {
     console.log(max);
 }
 
-zahl([3, 7, 9, 18, 24, 12]);
+zahl([26, 7, 9, 18, 24, 12]);
 zahl([4, 5, 6, 17, 8, 9]); 
