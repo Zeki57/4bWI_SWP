@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>IQRA! – Quiz zu den ersten Offenbarungen (Alle Fragen)</title>
+    <meta name="color-scheme" content="light dark">
+    <style>
+        :root {
+            --bg: #0b1220;
+            --panel: #0f172a;
+            --card: #121a2a;
+            --text: #f8fafc;
+            --muted: #cbd5e1;
+            --sub: #9aa6b2;
+            --b1: #334155;
+            --b2: #475569;
+            --accent: #22c55e;
+            --accent2: #38bdf8;
+            --danger: #ef4444;
+            --warn: #f59e0b;
+            --btn: #1f2937;
+            --btn-border: #334155;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f4f7fb;
+                --panel: #ffffff;
+                --card: #ffffff;
+                --text: #0b1220;
+                --muted: #334155;
+                --sub: #475569;
+                --b1: #cbd5e1;
+                --b2: #94a3b8;
+                --btn: #e2e8f0;
+                --btn-border: #cbd5e1;
+            }
+        }
+
+        body.high-contrast {
+            --text: #ffffff;
+            --muted: #e5e7eb;
+            --sub: #e2e8f0;
+            --bg: #0a0f1a;
+            --panel: #0a1224;
+            --card: #0c1428;
+            --b1: #5b86ff;
+            --b2: #5b86ff;
+            --btn-border: #5b86ff;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font: 18px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            background: linear-gradient(180deg, var(--bg), #050a14 120%);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        :focus {
+            outline: 2px solid transparent
+        }
+
+        :focus-visible {
+            outline: 3px solid #5b86ff;
+            outline-offset: 2px;
+            border-radius: 10px
+        }
+
+        .wrap {
+            width: min(1100px, 100%);
+            margin: auto
+        }
+
+        .glass {
+            background: var(--panel);
+            border: 1px solid var(--b1);
+            border-radius: 22px;
+            padding: 18px;
+            box-shadow: 0 20px 80px #0005, inset 0 1px 0 #ffffff15;
+        }
+
+        header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap
+        }
+
+        h1 {
+            font-size: clamp(22px, 3vw, 30px);
+            margin: 0
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--sub);
+            margin-top: 4px
+        }
+
+        .tag {
+            font-weight: 800;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #22c55e, #38bdf8);
+            color: #081018
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px
+        }
+
+        .btn {
+            appearance: none;
+            border: 1px solid var(--btn-border);
+            background: var(--btn);
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .15s transform, .15s filter;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px)
+        }
+
+        .btn:active {
+            transform: translateY(0)
+        }
+
+        .btn.primary {
+            background: linear-gradient(180deg, #16a34a, #0e7a39);
+            border-color: #0b5f2d;
+            color: #fff
+        }
+
+        .btn.ghost {
+            background: transparent
+        }
+
+        .btn.small {
+            padding: 7px 10px;
+            font-weight: 600
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 1.3fr .7fr;
+            margin-top: 12px
+        }
+
+        @media (max-width:900px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: 16px;
+            padding: 16px
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border: 1px solid var(--b1);
+            border-radius: 12px
+        }
+
+        .q-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 10px
+        }
+
+        .q-title {
+            font-weight: 800;
+            font-size: 20px
+        }
+
+        .category {
+            font-size: 13px;
+            color: var(--sub)
+        }
+
+        .progress {
+            height: 10px;
+            background: #0b1220;
+            border: 1px solid var(--b2);
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .progress>div {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transition: width .4s ease
+        }
+
+        .timerbar {
+            height: 8px;
+            background: #0b1220;
+            border: 1px solid var(--b2);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 6px
+        }
+
+        .timerbar>div {
+            height: 100%;
+            background: linear-gradient(90deg, var(--warn), var(--danger));
+            width: 100%;
+            transition: width 1s linear
+        }
+
+        .answers {
+            display: grid;
+            gap: 10px
+        }
+
+        .answer {
+            text-align: left;
+            font-weight: 700;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 2px solid var(--b1);
+            background: #172036;
+            color: #ffffff;
+            line-height: 1.35;
+            letter-spacing: .2px;
+            cursor: pointer;
+            transition: .12s transform, .12s background, .12s border-color, .12s box-shadow;
+            box-shadow: inset 0 1px 0 #ffffff15;
+        }
+
+        .answer:hover {
+            transform: translateY(-1px);
+            background: #1c2742;
+            border-color: #5b86ff
+        }
+
+        .answer:focus-visible {
+            box-shadow: 0 0 0 3px #5b86ff66
+        }
+
+        .answer.correct {
+            background: #0f2a17;
+            border-color: #16a34a;
+            color: #dcfce7
+        }
+
+        .answer.wrong {
+            background: #2a1313;
+            border-color: #ef4444;
+            color: #fee2e2
+        }
+
+        .answer[disabled] {
+            opacity: .95
+        }
+
+        .explain {
+            margin-top: 12px;
+            font-size: 15px;
+            color: var(--muted)
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .chip {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px dashed var(--b2);
+            color: var(--text)
+        }
+
+        .right {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end
+        }
+
+        .center {
+            text-align: center
+        }
+
+        .toast {
+            position: fixed;
+            inset: auto 0 18px 0;
+            display: flex;
+            justify-content: center;
+            pointer-events: none
+        }
+
+        .toast>div {
+            pointer-events: auto;
+            background: var(--card);
+            border: 1px solid var(--b1);
+            padding: 10px 14px;
+            border-radius: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="glass">
+            <header>
+                <div>
+                    <h1>IQRA! – Quiz zu den ersten Offenbarungen</h1>
+                    <div class="subtitle">Verse: <em>Al-ʿAlaq 1–5</em>, <em>Al-Qalam 1–7</em>, <em>Al-Muzzammil
+                            1–8</em>, <em>Al-Muddassir 1–7</em></div>
+                    <div class="toolbar" role="toolbar" aria-label="Hauptaktionen">
+                        <button class="btn primary" id="startBtn">Neues Spiel</button>
+                        <button class="btn" id="allBtn">Alle Kategorien</button>
+                        <button class="btn ghost" id="bAlaq">Al-ʿAlaq</button>
+                        <button class="btn ghost" id="bQalam">Al-Qalam</button>
+                        <button class="btn ghost" id="bMuzz">Al-Muzzammil</button>
+                        <button class="btn ghost" id="bMudd">Al-Muddassir</button>
+                        <span class="btn small" id="modeBtn" title="Hell/Dunkel umschalten">Light/Dark</span>
+                        <span class="btn small" id="contrastBtn" title="Kontrast erhöhen">High Contrast</span>
+                    </div>
+                </div>
+                <span class="tag">Alle-Fragen-Modus</span>
+            </header>
+
+            <div class="grid">
+                <main class="card" aria-live="polite">
+                    <div class="q-head">
+                        <div>
+                            <div class="category" id="category">Kategorie: —</div>
+                            <div class="q-title" id="question">Drücke „Neues Spiel“.</div>
+                        </div>
+                        <div style="min-width:200px">
+                            <div class="progress" aria-hidden="true">
+                                <div id="progress"></div>
+                            </div>
+                            <div class="timerbar" aria-hidden="true">
+                                <div id="timerbar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="answers" id="answers" role="listbox" aria-label="Antworten"></div>
+                    <div class="explain" id="explain" hidden></div>
+
+                    <div class="right" style="margin-top:10px">
+                        <button class="btn" id="skipBtn">Überspringen</button>
+                        <button class="btn ghost" id="fiftyBtn">50:50</button>
+                        <button class="btn ghost" id="hintBtn">Hinweis</button>
+                        <button class="btn ghost" id="retryBtn">Nochmal</button>
+                    </div>
+                </main>
+
+                <aside class="card" aria-label="Status">
+                    <div class="stat"><span>Score</span><span id="score">0</span></div>
+                    <div class="stat"><span>Streak</span><span id="streak">0</span></div>
+                    <div class="stat"><span>Zeit / Frage</span><span id="secs">15s</span></div>
+                    <div class="stat"><span id="hearts">❤️❤️</span><span id="lives">2 Leben (kosmetisch)</span></div>
+
+                    <div class="card" style="margin-top:12px">
+                        <div style="font-weight:800; margin-bottom:6px">Themen-Tags</div>
+                        <div class="chips" id="tags"></div>
+                    </div>
+
+                    <div class="card center" style="margin-top:12px">
+                        <div style="font-weight:800; margin-bottom:6px">Quelle / Inspiration</div>
+                        <div class="subtitle">„Die ersten Offenbarungen – Was will Allah uns mitteilen?“</div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div class="toast" id="toast" style="display:none">
+            <div id="toastMsg">👍</div>
+        </div>
+    </div>
+
+    <script>
+        /* ================= SCHWIERIGER FRAGENPOOL ================= */
+        const POOL = [
+            // — Al-ʿAlaq 1–5 —
+            {
+                cat: "Al-ʿAlaq 1–5", tags: ["Iqra", "Rabb", "Absicht"],
+                q: "Wie wird das Gebot „Lies!“ gerahmt und was betont das?",
+                choices: [
+                    "Ohne Zusatz – reine Informationsaufnahme",
+                    "Mit „im Namen deines Herrn“ – Wissen mit Gottesbewusstsein",
+                    "Mit „im Namen der Menschen“ – gesellschaftlicher Nutzen zuerst",
+                    "Mit „im Namen des Propheten“ – Vorbildcharakter vorrangig"
+                ],
+                a: 1,
+                hint: "Formulierung + Absicht",
+                exp: "„Lies im Namen deines Herrn“ verknüpft Wissenserwerb mit Ikhlāṣ und Rubūbiyya."
+            },
+            {
+                cat: "Al-ʿAlaq 1–5", tags: ["Anthropologie", "Demut"],
+                q: "Das Wort „ʿAlaq“ (anhaftendes Etwas) unterstreicht primär …",
+                choices: [
+                    "biologische Perfektion des Menschen",
+                    "die Niedrigkeit des Materials → Demut vor Allah",
+                    "dass der Mensch aus Licht erschaffen wurde",
+                    "Unabhängigkeit des Menschen von Gottes Fürsorge"
+                ],
+                a: 1,
+                hint: "Bescheidener Ursprung",
+                exp: "Die Unscheinbarkeit betont Demut – nicht Selbstüberschätzung."
+            },
+            {
+                cat: "Al-ʿAlaq 1–5", tags: ["Qalam", "Bildung"],
+                q: "Welche Dimension hebt „allama bil-qalam“ besonders hervor?",
+                choices: [
+                    "nur mündliche Tradierung",
+                    "Handwerkliche Geschicklichkeit",
+                    "Schrift, Dokumentation und Weitergabe über Generationen",
+                    "Militärische Taktik"
+                ],
+                a: 2,
+                hint: "Medium des Bewahrens",
+                exp: "Qalam steht für Schriftkultur: Bewahren, Prüfen, Weitergeben."
+            },
+            {
+                cat: "Al-ʿAlaq 1–5", tags: ["Rabb", "Erziehung"],
+                q: "Welche Facette von „Rabb“ passt am besten zum Ton der Verse?",
+                choices: [
+                    "bloße Machtausübung",
+                    "pädagogische Führung vom Einfachen zum Höheren",
+                    "politische Souveränität über Stämme",
+                    "Naturgesetz ohne Offenbarung"
+                ],
+                a: 1,
+                hint: "Lehren & Anheben",
+                exp: "Rubūbiyya erscheint als erziehende Führung – Lernen im Namen des Erziehers."
+            },
+
+            // — Al-Qalam 1–7 —
+            {
+                cat: "Al-Qalam 1–7", tags: ["Qasam", "Qalam"],
+                q: "Warum beginnt Al-Qalam mit einem Schwur bei „Nūn und dem Schreibrohr“?",
+                choices: [
+                    "um Magie zu fördern",
+                    "um die Würde der Schrift/Wahrheit zu bekräftigen",
+                    "um Handel zu erlauben",
+                    "um das Nachtgebet abzulösen"
+                ],
+                a: 1,
+                hint: "Wert des Qalam",
+                exp: "Der Schwur adelt Schrift/Wahrhaftigkeit – Kontrast zur Verleumdung."
+            },
+            {
+                cat: "Al-Qalam 1–7", tags: ["Trost", "Standhaftigkeit"],
+                q: "„Für dich ist ein ununterbrochener Lohn“ wirkt im Kontext vor allem als …",
+                choices: [
+                    "Verbot von weltlicher Arbeit",
+                    "Trost und Festigung angesichts Spott/Anfeindung",
+                    "Beleg, dass Lohn nur im Diesseits kommt",
+                    "Beweis für absolute Fehlerlosigkeit der Gefährten"
+                ],
+                a: 1,
+                hint: "Kontext: Anfeindungen",
+                exp: "Die Zusage stabilisiert den Gesandten ﷺ in der Zurückweisung."
+            },
+            {
+                cat: "Al-Qalam 1–7", tags: ["Akhlaq", "Beweisführung"],
+                q: "Wie dient der „großartige Charakter“ als Argument?",
+                choices: [
+                    "Er widerlegt den Vorwurf des Wahnsinns durch gelebte Ethik",
+                    "Er zeigt seinen Reichtum",
+                    "Er legitimiert Stammesprivilegien",
+                    "Er beendet die Offenbarung"
+                ],
+                a: 0,
+                hint: "Charakter als Gegenbeweis",
+                exp: "Akhlaq ist ein lebendiger Beweis gegen Diffamierung."
+            },
+            {
+                cat: "Al-Qalam 1–7", tags: ["Prüfung", "Zeitperspektive"],
+                q: "„Du wirst sehen und sie werden sehen…“ weist vor allem auf …",
+                choices: [
+                    "sofortige irdische Vergeltung",
+                    "eine kommende Klärung, wer rechtgeleitet ist",
+                    "Abschaffung des Gerichts",
+                    "Verbot, Geduld zu üben"
+                ],
+                a: 1,
+                hint: "Geduld + Aufschub",
+                exp: "Die Wahrheit wird sich mit der Zeit erweisen."
+            },
+
+            // — Al-Muzzammil 1–8 —
+            {
+                cat: "Al-Muzzammil 1–8", tags: ["Qiyam", "Tartil"],
+                q: "Welche Kombination nennt Al-Muzzammil als geistige Schulung?",
+                choices: [
+                    "Nachtgebet + gemessene Rezitation (tartīl)",
+                    "nur lange Dua ohne Qur’an",
+                    "monatliche Pilgerfahrt",
+                    "öffentliche Debatten in der Nacht"
+                ],
+                a: 0,
+                hint: "Form + Qualität",
+                exp: "Qiyām + tartīl formen Herz, Zunge und Verstand."
+            },
+            {
+                cat: "Al-Muzzammil 1–8", tags: ["Schwere Botschaft", "Vorbereitung"],
+                q: "„Ein schweres Wort auferlegen“ bedeutet praktisch …",
+                choices: [
+                    "der Qur’an sei unverständlich",
+                    "die Mission erfordert innere Stärke & Disziplin",
+                    "Beten am Tag sei verboten",
+                    "nur Gelehrte müssen handeln"
+                ],
+                a: 1,
+                hint: "Innere Kondition",
+                exp: "Die Last der Botschaft verlangt aufgebautes Durchhaltevermögen."
+            },
+            {
+                cat: "Al-Muzzammil 1–8", tags: ["Zeitmanagement"],
+                q: "Warum erwähnt die Sure „am Tag hast du lange Beschäftigungen“?",
+                choices: [
+                    "um Tagesgebete zu streichen",
+                    "um zu zeigen: Nacht = Konzentrationszeit für Aufbau",
+                    "um Handel zu verbieten",
+                    "um Schlaf als ibāda zu ersetzen"
+                ],
+                a: 1,
+                hint: "Nacht vs. Tag",
+                exp: "Die Nacht bietet Ruhe für Ausbildung; tagsüber ist man beansprucht."
+            },
+            {
+                cat: "Al-Muzzammil 1–8", tags: ["ʿIbāda", "Ikhlas"],
+                q: "„Widme dich Ihm ganz“ betont …",
+                choices: [
+                    "Rituale ohne Absicht",
+                    "vollständige Hinwendung (ikhlāṣ) statt Show",
+                    "Rückzug aus der Gesellschaft",
+                    "ersetzt das Lernen"
+                ],
+                a: 1,
+                hint: "Ganzhingabe",
+                exp: "Fokus und Aufrichtigkeit bilden das Herz der Anbetung."
+            },
+
+            // — Al-Muddassir 1–7 —
+            {
+                cat: "Al-Muddassir 1–7", tags: ["Daʿwa", "Reinheit"],
+                q: "Welche Reihenfolge spiegelt den Doppelauftrag am Anfang am besten?",
+                choices: [
+                    "Warnen → Reinheit → Meide das Unreine → Geduld",
+                    "Reinheit → Schlaf → Handel → Geduld",
+                    "Hajj → Zakat → Dschihad → Fasten",
+                    "Lesen → Schreiben → Reisen → Debattieren"
+                ],
+                a: 0,
+                hint: "Innen & Außen",
+                exp: "Auftreten in Reinheit + klare Warnung, gestützt von Sabr."
+            },
+            {
+                cat: "Al-Muddassir 1–7", tags: ["Spendenethik", "Absicht"],
+                q: "„Und gib nicht, um mehr zu bekommen“ bedeutet vorrangig …",
+                choices: [
+                    "Spenden ist generell problematisch",
+                    "Verbot großer Spenden",
+                    "Warnung vor Prahlerei/Gegenleistungserwartung",
+                    "Spenden nur in der Nacht erlaubt"
+                ],
+                a: 2,
+                hint: "Ikhlāṣ prüfen",
+                exp: "Absicht soll rein bleiben – ohne Kalkül nach Anerkennung."
+            },
+            {
+                cat: "Al-Muddassir 1–7", tags: ["Begriff", "Rijs/Ridsch"],
+                q: "Das Meiden des „Unreinen“ umfasst in der Frühphase vor allem …",
+                choices: [
+                    "nur physische Verschmutzung",
+                    "Götzenverehrung und moralische Verunreinigung",
+                    "verbotene Nahrung allein",
+                    "wissenschaftliche Debatten"
+                ],
+                a: 1,
+                hint: "Mehr als Flecken",
+                exp: "Gemeint ist ideologische/moralische Unreinheit – nicht bloß Schmutz."
+            },
+            {
+                cat: "Al-Muddassir 1–7", tags: ["Sabr", "Motivation"],
+                q: "„Sei standhaft um deines Herrn willen“ justiert die Motivation wie?",
+                choices: [
+                    "Standhaftigkeit für Stamm/Gruppe",
+                    "für Ruhm & Likes",
+                    "ausschließlich für Allah – unabhängig von Anerkennung",
+                    "nur wenn Erfolg garantiert ist"
+                ],
+                a: 2,
+                hint: "Motivfilter",
+                exp: "Sabr wird an Gottesabsicht gebunden, nicht an Resultate."
+            },
+
+            // — Verknüpfungen & Anwendung —
+            {
+                cat: "Verknüpfung", tags: ["Innen/Außen", "Curriculum"],
+                q: "Welche pädagogische Sequenz ergibt sich aus Al-Muzzammil & Al-Muddassir?",
+                choices: [
+                    "Außenaktion zuerst, Spiritualität später",
+                    "Innere Schulung (Qiyām, tartīl) → öffentlicher Auftrag (Warnen, Reinheit)",
+                    "Nur Studium ohne Aktion",
+                    "Nur Aktivismus ohne nächtliche Disziplin"
+                ],
+                a: 1,
+                hint: "Reihenfolge zählt",
+                exp: "Erst Herz & Zunge formen, dann wirken – beides zusammen ergibt Reife."
+            },
+            {
+                cat: "Verknüpfung", tags: ["Akhlaq", "Glaubwürdigkeit"],
+                q: "Wie stützt Al-Qalam die Glaubwürdigkeit im Zusammenspiel mit Al-ʿAlaq?",
+                choices: [
+                    "durch Reichtum des Gesandten",
+                    "durch großartigen Charakter + geordnete Wissenskultur (Qalam)",
+                    "durch Abschaffung des Lesens",
+                    "durch Stammesprivilegien"
+                ],
+                a: 1,
+                hint: "Ethos + Logos",
+                exp: "Charakter (Ethos) + Schrift/Wissen (Logos) tragen die Mission."
+            },
+            {
+                cat: "Anwendung", tags: ["Medienkompetenz", "Ikhlas"],
+                q: "Was wäre eine gegenwartsnahe Umsetzung von „Lies im Namen deines Herrn“?",
+                choices: [
+                    "Inhalte unkritisch teilen",
+                    "Quellen prüfen, Absicht läutern, Wissen verantwortungsvoll weitergeben",
+                    "Nur unterhalten lassen",
+                    "Lernen vermeiden, um neutral zu bleiben"
+                ],
+                a: 1,
+                hint: "Lesen ≠ Scrollen",
+                exp: "Gottesbewusstes, sorgfältiges Lesen + verantwortliches Handeln."
+            },
+            {
+                cat: "Anwendung", tags: ["Self-Check", "Praxis"],
+                q: "Welche persönliche Checkfrage passt am besten zu den Frühversen?",
+                choices: [
+                    "Wie kann ich auffallen?",
+                    "Was bringt mir Applaus?",
+                    "Ist meine Tat heute wissensgestützt, rein in der Absicht und geduldig getragen?",
+                    "Wie widerlege ich alle im Netz?"
+                ],
+                a: 2,
+                hint: "Wissen + Ikhlas + Sabr",
+                exp: "Die Frühverse formen einen Dreiklang für Alltagspraxis."
+            },
+            {
+                cat: "Begriff", tags: ["Tartīl", "Rezitation"],
+                q: "„Tartīl“ bedeutet vorrangig …",
+                choices: [
+                    "schnelles Murmeln für viele Seiten",
+                    "melodisches Singen ohne Sinn",
+                    "wohlgeordnete, bedächtige Rezitation mit Nachdenken",
+                    "nur Tajwīd-Regeln auswendig"
+                ],
+                a: 2,
+                hint: "Qualität vor Quantität",
+                exp: "Tartīl = geordnet, klar, sinnreflektiert rezitieren."
+            },
+            {
+                cat: "Begriff", tags: ["Rubūbiyya", "R-B-B"],
+                q: "Die Wurzel R-B-B (Rabb) trägt am ehesten welche Bedeutungsschicht?",
+                choices: [
+                    "abrupte Zerstörung",
+                    "kontinuierliches Pflegen/Entwickeln/Erziehen",
+                    "bloßes Verwalten ohne Liebe",
+                    "politische Herrschaft ohne Fürsorge"
+                ],
+                a: 1,
+                hint: "Entwickeln & Pflegen",
+                exp: "Rubūbiyya impliziert fürsorgliche Erziehung und Entwicklung."
+            }
+        ];
+
+        /* ================= SPIEL-ENGINE (ALLE-FRAGEN-MODUS) ================= */
+        const S = { timePerQ: 15, lives: 2, score: 0, streak: 0, idx: 0, order: [], current: null, used50: false, usedHint: false, filter: null, timer: null, left: 15 };
+
+        const elQ = document.getElementById('question');
+        const elA = document.getElementById('answers');
+        const elCat = document.getElementById('category');
+        const elTags = document.getElementById('tags');
+        const elExplain = document.getElementById('explain');
+        const elScore = document.getElementById('score');
+        const elStreak = document.getElementById('streak');
+        const elLives = document.getElementById('lives');
+        const elHearts = document.getElementById('hearts');
+        const elProg = document.getElementById('progress');
+        const elTimer = document.getElementById('timerbar').firstElementChild;
+        const elSecs = document.getElementById('secs');
+        const toast = document.getElementById('toast'); const toastMsg = document.getElementById('toastMsg');
+
+        const $ = s => document.querySelector(s);
+        const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+
+        function showToast(msg) { toastMsg.textContent = msg; toast.style.display = 'flex'; setTimeout(() => toast.style.display = 'none', 1200); }
+        function sampleOrder() { const list = S.filter ? POOL.filter(p => p.cat.startsWith(S.filter)) : POOL.slice(); return shuffle(list).map(q => ({ ref: q })); }
+        function updateHUD() {
+            elScore.textContent = S.score; elStreak.textContent = S.streak; elLives.textContent = `${S.lives} Leben (kosmetisch)`;
+            elHearts.textContent = "❤️".repeat(Math.max(0, S.lives)) + "🖤".repeat(2 - Math.max(0, S.lives));
+            elSecs.textContent = `${S.timePerQ}s`;
+            elProg.style.width = `${(S.idx / (S.order.length || 1)) * 100}%`;
+        }
+
+        // --- Start & Reihenfolge: immer alle Fragen durchgehen
+        function startGame() {
+            Object.assign(S, { lives: 2, score: 0, streak: 0, idx: 0, used50: false, usedHint: false });
+            S.order = sampleOrder();
+            updateHUD(); nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (S.idx >= S.order.length) return finish(); // Ende NUR wenn alle Fragen gezeigt wurden
+            S.current = S.order[S.idx++].ref;
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = S.current;
+            elExplain.hidden = true; elQ.textContent = q.q; elCat.textContent = `Kategorie: ${q.cat}`;
+            elA.innerHTML = ''; elTags.innerHTML = '';
+            q.tags?.forEach(t => { const s = document.createElement('span'); s.className = 'chip'; s.textContent = t; elTags.appendChild(s); });
+            q.choices.forEach((c, idx) => { const b = document.createElement('button'); b.className = 'answer'; b.setAttribute('role', 'option'); b.textContent = c; b.onclick = () => check(idx, b); b.onkeyup = e => { if (e.key === 'Enter' || e.key === ' ') b.click(); }; elA.appendChild(b); });
+            S.used50 = false; S.usedHint = false; $('#fiftyBtn').disabled = false; $('#hintBtn').disabled = false;
+            startTimer(); updateHUD();
+        }
+
+        function startTimer() {
+            clearInterval(S.timer); S.left = S.timePerQ; elTimer.style.width = '100%';
+            S.timer = setInterval(() => { S.left--; elTimer.style.width = `${(S.left / S.timePerQ) * 100}%`; if (S.left <= 0) { clearInterval(S.timer); timesUp(); } }, 1000);
+        }
+
+        // Zeit abgelaufen? -> zeigen, erklären, weiter (kein Abbruch)
+        function timesUp() {
+            lock();
+            // Leben nur kosmetisch, darf 0 werden – aber niemals Abbruch:
+            S.lives = Math.max(0, S.lives - 1);
+            updateHUD();
+            explain(`⏳ Zeit abgelaufen. ${S.current.exp}`);
+            showToast('⏳ Zeit ist um!');
+            setTimeout(nextQuestion, 900);
+        }
+
+        function lock() { [...elA.children].forEach(b => b.disabled = true); }
+        function explain(text) { elExplain.hidden = false; elExplain.innerHTML = text; }
+
+        function check(idx, btn) {
+            clearInterval(S.timer); lock();
+            const ok = idx === S.current.a;
+            if (ok) {
+                btn.classList.add('correct');
+                const pts = 120 + Math.min(60, S.streak * 12) + Math.floor((S.left / S.timePerQ) * 60);
+                S.score += pts; S.streak++;
+                explain(`✅ <strong>Korrekt.</strong> ${S.current.exp}<br><span class="subtitle">+${pts} Punkte</span>`);
+                showToast('✅ Richtig!');
+            } else {
+                btn.classList.add('wrong');
+                elA.children[S.current.a].classList.add('correct');
+                S.streak = 0;
+                // Leben nur kosmetisch – niemals Abbruch:
+                S.lives = Math.max(0, S.lives - 1);
+                updateHUD();
+                explain(`❌ <strong>Leider falsch.</strong> ${S.current.exp}`);
+                showToast('❌ Falsch');
+            }
+            updateHUD();
+            setTimeout(nextQuestion, 900);
+        }
+
+        function finish() {
+            clearInterval(S.timer); lock();
+            elQ.textContent = "Alle Fragen wurden gespielt – stark!";
+            elA.innerHTML = "";
+            // kleine Auswertung
+            const total = S.order.length;
+            const score = S.score;
+            explain(`🏁 Runde abgeschlossen.<br>
+      Fragen insgesamt: <strong>${total}</strong><br>
+      Endscore: <strong>${score}</strong><br>
+      Beste Streak: <strong>${S.streak}</strong><br>
+      Tipp: Filtere eine Kategorie für gezieltes Lernen oder mische neu mit „Neues Spiel“.`);
+            showToast('🏁 Fertig!');
+        }
+
+        // --- Lifelines & Steuerung ---
+        $('#fiftyBtn').onclick = () => {
+            if (S.used50 || !S.current) return; S.used50 = true; $('#fiftyBtn').disabled = true;
+            const wrong = [0, 1, 2, 3].filter(i => i !== S.current.a); shuffle(wrong).slice(0, 2).forEach(i => { const b = elA.children[i]; b.disabled = true; b.style.opacity = .6; }); showToast('🪄 50:50');
+        };
+        $('#hintBtn').onclick = () => { if (S.usedHint || !S.current) return; S.usedHint = true; $('#hintBtn').disabled = true; explain(`💡 Hinweis: ${S.current.hint}`); showToast('💡 Hinweis'); };
+        $('#retryBtn').onclick = () => { if (!S.current) return; const keep = S.current; const withIdx = keep.choices.map((c, i) => ({ c, i })); const sh = shuffle(withIdx); keep.choices = sh.map(x => x.c); keep.a = sh.findIndex(x => x.i === keep.a); renderQuestion(); showToast('🔄 Neu gemischt'); };
+
+        document.getElementById('startBtn').onclick = startGame;
+
+        // Überspringen kostet KEIN Leben – einfach weiter
+        document.getElementById('skipBtn').onclick = () => { if (!S.current) return; showToast('⏭️ Übersprungen'); nextQuestion(); };
+
+        function setFilter(f) { S.filter = f; startGame(); }
+        document.getElementById('allBtn').onclick = () => setFilter(null);
+        document.getElementById('bAlaq').onclick = () => setFilter('Al-ʿAlaq');
+        document.getElementById('bQalam').onclick = () => setFilter('Al-Qalam');
+        document.getElementById('bMuzz').onclick = () => setFilter('Al-Muzzammil');
+        document.getElementById('bMudd').onclick = () => setFilter('Al-Muddassir');
+
+        // Tastatur: 1–4 Antworten, N neu, S skip
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'n' || e.key === 'N') startGame();
+            if (e.key === 's' || e.key === 'S') document.getElementById('skipBtn').click();
+            const n = parseInt(e.key, 10); if (n >= 1 && n <= 4 && elA.children[n - 1]) elA.children[n - 1].click();
+        });
+
+        // Light/Dark & High-Contrast Toggles
+        document.getElementById('modeBtn').onclick = () => {
+            document.documentElement.style.colorScheme =
+                (document.documentElement.style.colorScheme === 'light') ? 'dark' :
+                    (document.documentElement.style.colorScheme === 'dark') ? 'light' : 'dark';
+        };
+        document.getElementById('contrastBtn').onclick = () => { document.body.classList.toggle('high-contrast'); };
+    </script>
+</body>
+
+</html>
